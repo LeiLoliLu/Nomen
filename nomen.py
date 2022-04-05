@@ -10,6 +10,8 @@ empatesRPS=0
 victoriasPPTLS=0
 derrotasPPTLS=0
 empatesPPTLS=0
+victoriasPrNn=0
+derrotasPrNn=0
 
 #Presentación, User selecciona nombre
 def presentacion():
@@ -41,10 +43,17 @@ def usernombre():
 
 #stats
 def stats():
+    global usern
     global cambionombre
     global victoriasRPS
+    global empatesRPS
+    global derrotasRPS
     global victoriasPPTLS
-    global usern
+    global empatesPPTLS
+    global derrotasPPTLS
+    global victoriasPrNn
+    global derrotasPrNn
+    
     time.sleep(1)
     print("Estos son tus stats:")
     time.sleep(1)  
@@ -67,6 +76,12 @@ def stats():
     print(f"Veces empatadas: {empatesPPTLS}")
     time.sleep(0.5)
     print(f"Veces perdidas: {derrotasPPTLS}")
+    time.sleep(0.5)
+    print("Pares o Nones:")
+    time.sleep(0.5)
+    print(f"Veces empatadas: {victoriasPrNn}")
+    time.sleep(0.5)
+    print(f"Veces perdidas: {derrotasPrNn}")
     menu()
 
 #Menú principal
@@ -93,6 +108,8 @@ def menu():
         print("1. Piedra, Papel, Tijera")
         time.sleep(0.5)
         print(pptls)
+        time.sleep(0.5)
+        print("3. Pares y Nones")
         juego=input()
         if juego=="1":
             RoPaSc()
@@ -104,6 +121,8 @@ def menu():
                 menu()
             elif pptls=="2. Piedra, Papel, Tijera, Lagarto, Spock":
                 RoPaScLiSp()
+        elif juego=="3":
+            ParesNones()
     elif opcion=="2":
         stats()
     elif opcion=="3":
@@ -136,7 +155,7 @@ def RoPaSc():
         time.sleep(0.5)
         print("Papel tapa a Piedra")
         time.sleep(0.5) 
-        print("¿Quieres jugar?")
+        print("¿Quieres jugar? (Y/N)")
         answe = input()
         if answe=="Y" or answe=="y":
             time.sleep(1)
@@ -527,6 +546,95 @@ def restartgame2():
         opcionPPTLS()
     else:
         menu()
+
+#Pares+Nones
+def ParesNones():
+    time.sleep(1)
+    print("Pares o Nones. ¿Sabes Jugar? (Y/N)")
+    answ=input()
+    if answ=="Y" or answ=="y":
+        time.sleep(1)
+        print("¡Bien, pues empecemos!")
+        time.sleep(0.5)
+        print("Elige: Pares o Nones")
+        PrNn()
+    elif answ=="N" or answ=="n":
+        time.sleep(1)
+        print("Es muy sencillo. Primero se elige a que se va a ir, a pares o a nones.")
+        time.sleep(0.5)
+        print("A continuación cada uno elegimos un número, del 0 al 5, ambos incluidos")
+        time.sleep(0.5)
+        print("Sumaremos ambos números. Si el numero final es par, gana el que se quedó con los pares.")
+        time.sleep(0.5)
+        print("Si es impar, gana el que escogió los nones.")
+        time.sleep(0.5)
+        print("¿Jugamos? (Y/N)")
+        answe=input()
+        if answe=="Y" or answe=="y":
+            time.sleep(1)
+            print("¡Bien, pues empecemos!")
+            time.sleep(0.5)
+            print("¿Pares o Nones?")
+            PrNn()
+        elif answe=="N" or answe=="n":
+            menu()
+def PrNn():
+    global derrotasPrNn
+    global victoriasPrNn
+    ChoiceUser=input()
+    if ChoiceUser=="Pares" or ChoiceUser=="pares":
+        time.sleep(1)
+        print("Has elegido Pares. Ahora, ¿qué número quieres jugar?")
+        numuser=int(input())
+        numnomen=random.randint(0,5)
+        resultado=numuser+numnomen
+        time.sleep(1)
+        print(f"Has elegido {numuser}. ¡Yo he elegido {numnomen}!")
+        time.sleep(0.5)
+        print(f"{numuser}+{numnomen} es {resultado}")
+        if resultado%2==0:
+            victoriasPrNn=victoriasPrNn+1
+            time.sleep(0.5)
+            print(f"{resultado} es par. ¡Has ganado!")
+            restartgame3()
+        else:
+            derrotasPrNn=derrotasPrNn+1
+            time.sleep(0.5)
+            print(f"{resultado} es impar. ¡He ganado!")
+            restartgame3()
+    elif ChoiceUser=="Nones" or ChoiceUser=="nones":
+        time.sleep(1)
+        print("Has elegido Nones. Ahora, ¿qué número quieres jugar?")
+        numuser=int(input())
+        numnomen=random.randint(0,5)
+        resultado=numuser+numnomen
+        time.sleep(0.5)
+        print(f"Has elegido {numuser}. ¡Yo he elegido {numnomen}!")
+        time.sleep(0.5)
+        print(f"{numuser}+{numnomen} es {resultado}")
+        if resultado%2==0:
+            derrotasPrNn=derrotasPrNn+1
+            time.sleep(0.5)
+            print(f"{resultado} es par. ¡He ganado!")
+            restartgame3()
+        else:
+            victoriasPrNn=victoriasPrNn+1
+            time.sleep(0.5)
+            print(f"{resultado} es impar. ¡Has ganado!")
+            restartgame3()
+def restartgame3():
+    time.sleep(0.5)
+    print("¿Quieres volver a jugar? (Y/N)")
+    anss=input()
+    if anss=="Y" or anss=="y":
+        time.sleep(1)
+        print("¡Bien! Vamos allá.")
+        time.sleep(0.5)
+        print("¿Pares o Nones?")
+        PrNn()
+    else:
+        menu()
+
 
 #Script
 presentacion()
