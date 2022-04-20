@@ -23,6 +23,7 @@ def Start(): ##DormitorioAzul
     print("Una cama, un armario, una cómoda y un escritorio se encuentran en esta habitación.")
     print("Puedes identificar un espejo colgado de una de las paredes. También hay una alfombra.")
     print("Por otra parte, la ventana frente al escritorio y la puerta en el lado contrario de la cama son de una madera azul más oscura.")
+    print("(Para ver que puedes hacer, escribe 'ayuda')")
     DormiAzulAct()
 
 def DormiAzulAct():
@@ -30,14 +31,18 @@ def DormiAzulAct():
     global araña
     global boton
     Separar(input(">").lower())
-    if accion[0]=="ayuda" or accion==[0]=="help":
+    if accion[0]=="ayuda" or accion[0]=="help":
         print("Mirar [objeto]: Mira alguna cosa.")
+        print("En vez de 'mirar' puedes escribir 'ver' o 'examinar'. Es decir, diferentes comandos tienen distintos nombres.")
+        print("Tambien puedes realizar diferentes acciones de varias formas, por ejemplo, quizas puedes mirar debajo de una alfombra.")
+        print("")
         print("Coger [objeto]: Añades un objeto a tu inventario.")
         print("Tirar [objeto]: Tiras un objeto de tu inventario.")
         print("Usar [objeto]: Usar un objeto de tu inventario. (o fuera de tu inventario, pero en la gran mayoria tienes que tenerlo)")
         print("Salir/Entrar : Sal del cuarto en el que estás, o entra a uno nuevo.")
-        print("En vez de 'mirar' puedes escribir 'ver' o 'examinar'. Es decir, diferentes comandos también pueden utilizarse")
-        print("Tambien puedes realizar diferentes acciones de varias formas, por ejemplo, quizas puedes mirar debajo de una alfombra.")
+        print("")
+        print("Abre tu inventario con 'ver inventario' o 'ver inv'")
+        DormiAzulAct()
     ## mirar cosas
     if accion[0] in mirar:
         if accion[1]=="muebles" or accion[1]=="mueble":
@@ -45,7 +50,17 @@ def DormiAzulAct():
             print("A pesar de no ser un mueble, hay una alfombra en el suelo.")
             DormiAzulAct()
         elif accion[1]=="tarro":
-            print("¿De dónde has sacado ese tarro?") ##solo de betatester
+            if araña=="si":
+                print("¿De dónde has sacado ese tarro?") ##solo de betatester
+                DormiAzulAct()
+            else:
+                print("Miras al tarro y a la araña.")
+                print("Te sigue dando un poco de repelús.")
+                DormiAzulAct()
+        elif accion[1]=="cinturón":
+            print("Un cinturón de cuero algo gastado.")
+            print("Hace un buen trabajo sosteniendote los pantalones.")
+            DormiAzulAct()
         elif accion[1]=="inventario" or accion[1]=="inv":
             print("Este es tu inventario:")
             for x in inv:
@@ -72,7 +87,7 @@ def DormiAzulAct():
             print("Las paredes son blancas. Hay un espejo, una ventana y una puerta.")
             DormiAzulAct()
         elif accion[1]=="cama": 
-            print("Miras la cama. Está algo desecha de haber dormido en ella. Las sábanas son azules, a juego con la madera más oscura de la habitación.")
+            print("Miras la cama. Está algo deshecha de haber dormido en ella. Las sábanas son azules, a juego con la madera más oscura de la habitación.")
             print("Parece que has dormido sobre las sábanas.")
             print("No recuerdas haberte acostado aquí.")
             DormiAzulAct()
@@ -88,6 +103,7 @@ def DormiAzulAct():
             if boton=="no":
                 print("Miras la muñeca. Su pelo es azul y le falta un ojo botón. Es bastante antigua.")   
                 print("Su vestido es del mismo color que la madera de la cama, y su unico botón es un turquesa intenso.")
+                DormiAzulAct()
             else:
                 print("Miras la muñeca. Su pelo es azul y tiene ojos botón turquesas. Es bastante antigua.")
                 print("Te mira feliz. Parece que tiene ganas de jugar.")  
@@ -113,10 +129,15 @@ def DormiAzulAct():
             print("Curioso.")
             DormiAzulAct()
         elif accion[1]=="araña":
-            print("Abres el primer cajón y miras a la araña.")
-            print("Cierras el cajón.")
-            print("No quieres mirar.")
-            DormiAzulAct()
+            if araña=="si":
+                print("Abres el primer cajón y miras a la araña.")
+                print("Cierras el cajón.")
+                print("No quieres mirar, pero jurarías que no solo hay una araña en el cajón.")
+                DormiAzulAct()
+            else:
+                print("Miras al tarro y a la araña.")
+                print("Sigue dandote un poco de repelús.")
+                DormiAzulAct()
         elif accion[1]=="papel":
             print("Es una hoja de papel. Tiene dibujada una flor azul.")
             print("La flor está triste.")
@@ -187,7 +208,8 @@ def DormiAzulAct():
             DormiAzulAct()
         elif accion[1]=="aguja" or accion[1]=="hilo":
             print("Aguja e hilo, utilizados usualmente para coser.")
-            print("Seguro que le encuentras un uso.")
+            print("Seguro que les encuentras un uso.")
+            DormiAzulAct()
         else:
             print("Estas intentando mirar a algo. Para mirar, escribe (¡Cuidado con los acentos!):")
             print("'Mirar alfombra'.")
@@ -290,7 +312,7 @@ def DormiAzulAct():
                 print("La silla no sale de los agujeros.")
                 door="open"
                 DormiAzulAct()
-            elif accion[1]=="aguja" and accion[1]=="hilo" and accion[1]=="botón":
+            elif accion[1]=="aguja" or accion[1]=="hilo" or accion[1]=="botón":
                 print("Coses el botón de tu camisa a la muñeca. Ahora la muñeca tiene ambos ojos.")
                 print("Está contenta. Seguro que le gustaría salir a jugar al jardín.")
                 boton="si"
